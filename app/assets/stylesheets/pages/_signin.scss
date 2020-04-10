@@ -1,0 +1,22 @@
+.sign-up-page {
+  background-color: $iso-blue;
+  min-height: calc(100vh - 66px);
+  align-items: center;
+}
+
+.sign-up-form {
+  background-color: white;
+  margin: 3rem 1rem;
+  h2 {
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+.upload-photo {
+  border: 1px solid #d3d3d3;
+  padding: 16px 24px;
+  cursor: pointer;
+  font-weight: 500;
+  background: white;
+  border-radius: 2px;
+}

@@ -1,0 +1,29 @@
+.orange-btn {
+  background-color: $iso-orange;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  width: 7.5rem;
+  border-radius: 40px;
+  min-width: 7.5rem;
+  width: auto !important;
+  &:hover {
+    opacity: 0.9;
+    color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.brown-btn {
+  background-color: $iso-brown;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  width: 7.5rem;
+  border-radius: 40px;
+  &:hover {
+    opacity: 0.9;
+    color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  }
+}
