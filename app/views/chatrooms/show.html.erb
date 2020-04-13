@@ -1,11 +1,14 @@
 <!-- app/views/chatrooms/show.html.erb -->
-<h1>#<%= @chatroom.name %></h1>
-<div id="messages" data-chatroom-id="<%= @chatroom.id %>">
-  <% @chatroom.messages.each do |message| %>
-    <%= render partial: "messages/message", collection: [message], as: :message %>
-  <% end %>
-</div>
+<div class="chatroom">
+  <h1>#<%= @chatroom.name %></h1>
 
-<%= simple_form_for [ @chatroom, @message ], remote: true do |f| %>
-  <%= f.input :content, label: false, placeholder: "Message ##{@chatroom.name}" %>
-<% end %>
+  <div>
+    <div id="messages" data-chatroom-id="<%= @chatroom.id %>">
+      <% @chatroom.messages.each do |message| %>
+        <%= render "messages/message", message: message %>
+      <% end %>
+    </div>
+
+    <%= render "messages/form", chatroom: @chatroom, message: @message %>
+  </div>
+</div>
