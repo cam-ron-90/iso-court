@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_13_134113) do
+ActiveRecord::Schema.define(version: 2020_04_14_031854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,12 +41,49 @@ ActiveRecord::Schema.define(version: 2020_04_13_134113) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "hearing_id", null: false
+    t.index ["group_id"], name: "index_charges_on_group_id"
+    t.index ["hearing_id"], name: "index_charges_on_hearing_id"
   end
 
   create_table "chatrooms", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "commitments", force: :cascade do |t|
+    t.string "category"
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.bigint "hearing_id", null: false
+    t.index ["group_id"], name: "index_commitments_on_group_id"
+    t.index ["hearing_id"], name: "index_commitments_on_hearing_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hearings", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_hearings_on_group_id"
+  end
+
+  create_table "laws", force: :cascade do |t|
+    t.string "name"
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_laws_on_group_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -76,6 +113,24 @@ ActiveRecord::Schema.define(version: 2020_04_13_134113) do
     t.index ["user_id"], name: "index_user_charges_on_user_id"
   end
 
+  create_table "user_commitments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "commitment_id", null: false
+    t.index ["commitment_id"], name: "index_user_commitments_on_commitment_id"
+    t.index ["user_id"], name: "index_user_commitments_on_user_id"
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_user_groups_on_group_id"
+    t.index ["user_id"], name: "index_user_groups_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,9 +145,19 @@ ActiveRecord::Schema.define(version: 2020_04_13_134113) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "charges", "groups"
+  add_foreign_key "charges", "hearings"
+  add_foreign_key "commitments", "groups"
+  add_foreign_key "commitments", "hearings"
+  add_foreign_key "hearings", "groups"
+  add_foreign_key "laws", "groups"
   add_foreign_key "messages", "chatrooms"
   add_foreign_key "messages", "users"
   add_foreign_key "sentences", "charges"
   add_foreign_key "user_charges", "charges"
   add_foreign_key "user_charges", "users"
+  add_foreign_key "user_commitments", "commitments"
+  add_foreign_key "user_commitments", "users"
+  add_foreign_key "user_groups", "groups"
+  add_foreign_key "user_groups", "users"
 end
