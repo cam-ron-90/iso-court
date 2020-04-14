@@ -1,4 +1,5 @@
 class Commitment < ApplicationRecord
+  after_initialize :set_defaults
   belongs_to :hearing
   belongs_to :group
   has_many :user_commitments
