@@ -7,8 +7,16 @@ class CommitmentsController < ApplicationController
 
   def create
     @commitment = Commitment.new(commitment_params)
+    @commitment.group = Group.find(params[:user_id])
+    @commitment.hearing = Group.find(params[:user_id]).hearings.last
+    @user_commitment = UserCommitment.new
+    @user = User.find(params[:user_id])
 
     if @commitment.save
+      @user_commitment.commitment = @commitment
+      @user_commitment.user = @user
+      @user_commitment.save
+
       redirect_to request.referer
     else
       render :new
@@ -19,7 +27,7 @@ class CommitmentsController < ApplicationController
   end
 
   def update
-    @commitment.update(commitment_params)
+    @commitment.update(status: 'Complete')
 
     redirect_to request.referer
   end
