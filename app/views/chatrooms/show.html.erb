@@ -4,7 +4,7 @@
     <div class="chat-header"><h4>#<%= @chatroom.name %></h4></div>
 
     <div class="messages" id="messages" data-chatroom-id="<%= @chatroom.id %>" data-current-user= "<%= current_user.id %>">
-      <% @chatroom.messages.each do |message| %>
+      <% @chatroom.messages.reverse_each do |message| %>
         <%= render "messages/message", message: message %>
       <% end %>
     </div>

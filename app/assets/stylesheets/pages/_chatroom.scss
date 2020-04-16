@@ -8,7 +8,10 @@
   border-bottom-width: 0;
   max-height: calc(100vh - 70px - 45px - 61px - 30px);
   overflow: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
+
 
 .message {
   display: flex;
@@ -35,7 +38,7 @@
   background-color: #B68DB2;
   color: white;
   border-radius: 3px;
-  margin: 0px 10px 0px 30px;
+  margin: 10px 10px 0px 30px;
   padding: 11px 10px 8px 10px;
   display: flex;
   flex-direction: column;
@@ -43,7 +46,7 @@
 .message-content-left {
   background-color: #F2F9FC;
   border-radius: 3px;
-  margin: 0px 30px 0px 10px;
+  margin: 10px 30px 0px 10px;
   padding: 11px 10px 8px 10px;
   display: flex;
   flex-direction: column;
