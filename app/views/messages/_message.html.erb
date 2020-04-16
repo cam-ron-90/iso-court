@@ -1,8 +1,18 @@
 <!-- app/views/messages/_message.html.erb -->
-<div class="message-container" id="message-<%= message.id %>">
-  <i class="author">
-    <span><%= message.user.username %></span>
-    <small><%= message.created_at.strftime("") %></small>
-  </i>
-  <p><%= message.content %></p>
+<div class="bloc"
+      id="message-<%= message.id %>", data-user-id="<%= message.user.id %>">
+  <div class="content">
+    <p class="text"><%= message.content %></p>
+    <small><%= time_ago_in_words(message.created_at) %> ago</small>
+  </div>
+
+  <div class="author">
+    <% if message.user.avatar.attached? %>
+      <%= cl_image_tag message.user.avatar.key, class: "avatar" %>
+    <% else %>
+      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar" %>
+    <% end %>
+    <span class="align-self-center"><%= message.user.username %></span>
+  </div>
 </div>
+

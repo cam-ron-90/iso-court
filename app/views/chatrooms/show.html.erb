@@ -1,14 +1,50 @@
 <!-- app/views/chatrooms/show.html.erb -->
-<div class="chatroom">
-  <h1>#<%= @chatroom.name %></h1>
+<div class="row justify-content-center" style="max-height: calc(100vh - 66px);">
+  <div class="chatroom col-sm-6">
+    <div class="chat-header"><h4>#<%= @chatroom.name %></h4></div>
 
-  <div>
-    <div id="messages" data-chatroom-id="<%= @chatroom.id %>">
+    <div class="messages" id="messages" data-chatroom-id="<%= @chatroom.id %>" data-current-user= "<%= current_user.id %>">
       <% @chatroom.messages.each do |message| %>
         <%= render "messages/message", message: message %>
       <% end %>
     </div>
 
-    <%= render "messages/form", chatroom: @chatroom, message: @message %>
+    <div id="create-message">
+      <%= render "messages/form", chatroom: @chatroom, message: @message %>
+    </div>
   </div>
 </div>
+
+<script>
+
+  // clearing input field after sending a message
+  // preventing from doubled/empty messages
+  const input = document.querySelector('#message_content');
+  const myForm = document.querySelector('#new_message');
+
+  myForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    myForm.submit();
+    input.value = "";
+  })
+
+  // dynamically styling each message bubble
+  const firstStyle = (bloc, currentUser) => {
+    if (currentUser === bloc.dataset["userId"]) {
+      bloc.classList.add("message");
+      bloc.querySelector(".content").classList.add("message-content");
+      bloc.querySelector(".text").classList.add("right-text");
+    } else {
+      bloc.classList.add("message-left");
+      bloc.querySelector(".content").classList.add("message-content-left");
+      bloc.querySelector(".text").classList.add("left-text");
+    }
+  };
+
+  const messages = document.querySelectorAll(".bloc");
+  const currentUserId = document.getElementById("messages").dataset["currentUser"];
+  messages.forEach((bloc) => { firstStyle(bloc, currentUserId) });
+
+</script>
+
