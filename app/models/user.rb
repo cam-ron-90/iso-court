@@ -10,4 +10,10 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
+  has_many :user_groups, dependent: :destroy
+  has_many :groups, through: :user_groups
+
+  def admin_groups
+    Group.where(admin: self)
+  end
 end

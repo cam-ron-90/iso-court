@@ -1,0 +1,16 @@
+<h1>Groups#index</h1>
+<p>Find me in app/views/groups/index.html.erb</p>
+
+<% if current_user.groups.length.zero? %>
+  <p>You don't belong to any group rn</p>
+<% else %>
+  <% @groups.each do |group| %>
+    <li><%= group.name %></li>
+  <% end %>
+<% end %>
+
+<h5>Want to join a group?</h5>
+
+<h5>Look for your friends groups</h5><p> (insert search bar)</p>
+
+<h5><%= link_to "Or create your own team", new_group_path %></h5>
