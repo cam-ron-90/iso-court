@@ -1,0 +1,50 @@
+<div class="row justify-content-center sign-up-page">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <div class="form-for-group">
+      <h2>Create a group</h2>
+      <%= simple_form_for(@group) do |f| %>
+        <div class="col-xs-6 form-inline mb-3">
+          <%= f.input :name, required: false, label: "Group name", placeholder: "Ma best team" %>
+        </div>
+
+      <!-- User cards -->
+      <div class="form-group">
+        <label class="control-label check_boxes optional">Invite your mates (add inline search bar to invite users)</label>
+        <input type="hidden" name="group[user_ids][]" value="">
+        <div class="user-choices row">
+          <% User.all.each do |user| %>
+            <div class="col-3">
+              <input class="checkbox" type="checkbox" value="<%= user.id %>" name="group[user_ids][]" id="group_user_ids_<%= user.id %>">
+              <label for="group_user_ids_<%= user.id %>" class="user-choice">
+                <%= user.username %>
+                <% if user.avatar.attached? %>
+                  <%= cl_image_tag user.avatar.key, class: "avatar-large" %>
+                <% else %>
+                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar-large" %>
+                <% end %>
+                <i class="fa fa-check"></i>
+              </label>
+            </div>
+          <% end %>
+         </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "BUILD DAT TEAM", class: "brown-btn mr-2" %>
+        <%= link_to "BACK", request.referer, class: "btn orange-btn mr-2" %>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  let choices = document.querySelectorAll(".user-choice")
+  choices.forEach((choice) => {
+    choice.addEventListener("click", (e) => {
+      choice.classList.toggle("active");
+    })
+  })
+</script>

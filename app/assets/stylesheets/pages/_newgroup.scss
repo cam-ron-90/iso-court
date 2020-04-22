@@ -1,0 +1,54 @@
+// Form design
+.form-for-group {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 5px;
+  h2 {
+    font-family: 'Roboto', sans-serif;
+    color: $iso-brown;
+    margin-bottom: 2rem;
+  }
+}
+
+.form-inline {
+  .group_name {
+    flex: 100 0 auto;
+    input {
+      margin-left: 16px;
+      flex-grow: 100;
+    }
+  }
+}
+
+// Checkboxes design
+.user-choices {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 10px 0 30px 0;
+  .checkbox {
+    margin: 0px;
+    z-index: 0;
+    position: absolute;
+    visibility: hidden;
+  }
+}
+
+.user-choice {
+  background: #b7b7b7;
+  padding: 20px;
+  border-radius: 5px;
+  opacity: .4;
+  flex: 0 0 30%;
+  text-align: center;
+  z-index: 1;
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  &.active {
+  background: $iso-orange;
+  color: white;
+  opacity: 1;
+  }
+}
