@@ -8,7 +8,7 @@
   </div>
 
   <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <h3><%= @group.name %> <i class="fas fa-arrow-right"></i> <%= link_to "Start Trial", "#", class: "btn btn-secondary" %></h3>
+    <h3 class="mb-4"><%= @group.name %><%= link_to "START TRIAL", "#", class: "ml-4 btn brown-btn" %></h3>
     <!-- link should go to trial page -->
 
     <div class="card-grid">
@@ -40,8 +40,8 @@
 
             <!-- Modal button -->
             <div class="text-center">
-              <button type="button" class="btn btn-primary my_link" id="btnModal" data-toggle="modal" data-target="#my-modal" data-val=<%= user.id %> data-name= <%= user.username %> >
-                Snitch em up'
+              <button type="button" class="btn orange-btn" id="btnModal" data-toggle="modal" data-target="#my-modal" data-val=<%= user.id %> data-name= <%= user.username %> >
+                SNITCH EM UP'
               </button>
             </div>
 
