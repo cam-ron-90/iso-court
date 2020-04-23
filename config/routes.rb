@@ -22,10 +22,9 @@ Rails.application.routes.draw do
   resources :groups, except: [:edit, :update] do
     resources :charges, only: [:new, :create]
     resources :hearings, only: [:index, :show]
-  end
-
-  resources :chatrooms, only: :show do
-    resources :messages, only: :create
+    resources :chatrooms, only: :show do
+      resources :messages, only: :create
+    end
   end
 
 end

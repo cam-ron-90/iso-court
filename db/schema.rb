@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_030436) do
+ActiveRecord::Schema.define(version: 2020_04_23_041247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2020_04_22_030436) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_chatrooms_on_group_id"
   end
 
   create_table "commitments", force: :cascade do |t|
@@ -151,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_030436) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "charges", "groups"
   add_foreign_key "charges", "hearings"
+  add_foreign_key "chatrooms", "groups"
   add_foreign_key "commitments", "groups"
   add_foreign_key "commitments", "hearings"
   add_foreign_key "groups", "users", column: "admin_id"

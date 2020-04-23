@@ -11,6 +11,7 @@
     <h3 class="mb-4"><%= @group.name %>
       <%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %>
       <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
+      <%= link_to "CHATROOM", group_chatroom_path(@group, @group.chatroom), class: "ml-4 btn brown-btn" %>
     </h3>
     <!-- link should go to trial page -->
 
