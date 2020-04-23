@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_151622) do
+ActiveRecord::Schema.define(version: 2020_04_23_154557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,12 +42,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_151622) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "group_id", null: false
-    t.bigint "hearing_id", null: false
-    t.string "verdict"
-    t.bigint "judge_id", null: false
     t.index ["group_id"], name: "index_charges_on_group_id"
-    t.index ["hearing_id"], name: "index_charges_on_hearing_id"
-    t.index ["judge_id"], name: "index_charges_on_judge_id"
   end
 
   create_table "chatrooms", force: :cascade do |t|
@@ -116,7 +111,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_151622) do
     t.bigint "charge_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "hearing_id", null: false
+    t.bigint "judge_id", null: false
+    t.string "verdict"
     t.index ["charge_id"], name: "index_user_charges_on_charge_id"
+    t.index ["hearing_id"], name: "index_user_charges_on_hearing_id"
+    t.index ["judge_id"], name: "index_user_charges_on_judge_id"
     t.index ["user_id"], name: "index_user_charges_on_user_id"
   end
 
@@ -154,8 +154,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_151622) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "charges", "groups"
-  add_foreign_key "charges", "hearings"
-  add_foreign_key "charges", "users", column: "judge_id"
   add_foreign_key "chatrooms", "groups"
   add_foreign_key "commitments", "groups"
   add_foreign_key "commitments", "hearings"
@@ -166,7 +164,9 @@ ActiveRecord::Schema.define(version: 2020_04_23_151622) do
   add_foreign_key "messages", "users"
   add_foreign_key "sentences", "charges"
   add_foreign_key "user_charges", "charges"
+  add_foreign_key "user_charges", "hearings"
   add_foreign_key "user_charges", "users"
+  add_foreign_key "user_charges", "users", column: "judge_id"
   add_foreign_key "user_commitments", "commitments"
   add_foreign_key "user_commitments", "users"
   add_foreign_key "user_groups", "groups"

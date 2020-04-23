@@ -1,6 +1,17 @@
 <h1>Hearings#show</h1>
 <p>Find me in app/views/hearings/show.html.erb</p>
 
-<% @hearing.charges.each do |charge| %>
-  <li>Charged:<%= charge.users %></li>
+<% @hearing.user_charges.each do |usercharge| %>
+  <div class="container">
+    <% if usercharge.user.avatar.attached? %>
+      <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-large mt-4" %>
+    <% else %>
+      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-large mt-4" %>
+    <% end %>
+    <li>Charged: <%= usercharge.user.username %></li>
+    <li>Type of felony: <%= usercharge.charge.category %></li>
+    <li>Charge description: <%= usercharge.charge.description %></li>
+    <li>Judge: <%= usercharge.judge.username %></li>
+    <li>Verdict: <%= usercharge.verdict %></li>
+  </div>
 <% end %>

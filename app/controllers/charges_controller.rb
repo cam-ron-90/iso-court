@@ -8,10 +8,11 @@ class ChargesController < ApplicationController
   def create
     @charge = Charge.new(charge_params)
     @charge.group = Group.find(params[:group_id])
-    @charge.hearing = @charge.group.hearings.last
-    @user = User.find(params[:charge][:user_ids].to_i)
-    @charge.judge  = @charge.group.users.all.select{ |x| x != @user }.sample
+
     @user_charge = UserCharge.new
+    @user_charge.hearing = @charge.group.hearings.last
+    @user = User.find(params[:charge][:user_ids].to_i)
+    @user_charge.judge  = @charge.group.users.all.select{ |x| x != @user }.sample
 
     if @charge.save
       @user_charge.charge = @charge
@@ -28,7 +29,7 @@ class ChargesController < ApplicationController
   end
 
   def update
-    @charge.update(verdict: 'Not Guilty')
+    #@charge.update(verdict: 'Not Guilty')
 
     redirect_to court_path(params[:group_id])
   end
