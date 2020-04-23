@@ -1,7 +1,7 @@
 <div class="container">
   <%= simple_form_for [@group, Charge.new] do |f| %>
   <div class="form-card">
-    <%#= f.input :user_id, as: :hidden, collection: @group.users.collect { |x|  [ x.id.to_i, x.username ] }, label_method: :second, value_method: :first, prompt: "Choose a User" %>
+    <%= f.association :users, as: :hidden %>
     <%= f.input :category, as: :radio_buttons, collection: ["Hygiene", "Media",
       "Information", "Social distancing", "Calm approach",
       "Fight boredom", "Positive focus", "Social connection", "Physical activity",

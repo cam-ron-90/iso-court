@@ -7,11 +7,10 @@ class ChargesController < ApplicationController
 
   def create
     @charge = Charge.new(charge_params)
-    @charge.group = Group.find(params[:user_id])
-    @charge.hearing = Group.find(params[:user_id]).hearings.last
-    @user = User.find(params[:user_id])
-    group_users  = Group.find(params[:id]).users.all.collect{ |x| x.username }
-    @charge.judge = (group_users.select{ |x| x != @user.username }).sample
+    @charge.group = Group.find(params[:group_id])
+    @charge.hearing = @charge.group.hearings.last
+    @user = User.find(params[:charge][:user_ids].to_i)
+    @charge.judge  = @charge.group.users.all.select{ |x| x != @user }.sample
     @user_charge = UserCharge.new
 
     if @charge.save
@@ -35,7 +34,6 @@ class ChargesController < ApplicationController
   end
 
   def destroy
-
     @charge.destroy
 
     redirect_to court_path(params[:group_id])
