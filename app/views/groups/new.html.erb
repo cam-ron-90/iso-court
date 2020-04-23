@@ -13,6 +13,8 @@
         <input type="hidden" name="group[user_ids][]" value="">
         <div class="user-choices row">
           <% User.all.each do |user| %>
+            <% next if user == current_user %>
+
             <div class="col-3">
               <input class="checkbox" type="checkbox" value="<%= user.id %>" name="group[user_ids][]" id="group_user_ids_<%= user.id %>">
               <label for="group_user_ids_<%= user.id %>" class="user-choice">

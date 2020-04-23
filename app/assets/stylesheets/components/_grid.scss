@@ -1,0 +1,22 @@
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+
+@media(max-width: 1024px) {
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+  }
+}
+
+@media(max-width: 768px) {
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+  }
+}

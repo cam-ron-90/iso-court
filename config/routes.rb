@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get 'sentences/new'
   get 'sentences/create'
   get 'sentences/destroy'
-  get 'charges/new'
-  get 'charges/create'
   get 'charges/destroy'
   get 'commitments/new'
   get 'commitments/create'
@@ -21,7 +19,9 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :groups, except: [:edit, :update]
+  resources :groups, except: [:edit, :update] do
+    resources :charges, only: [:new, :create]
+  end
 
   resources :chatrooms, only: :show do
     resources :messages, only: :create

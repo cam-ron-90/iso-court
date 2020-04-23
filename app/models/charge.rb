@@ -11,6 +11,6 @@ class Charge < ApplicationRecord
   private
 
   def set_defaults
-    self.status = 'pending'
+    self.verdict = 'pending'
   end
 end
