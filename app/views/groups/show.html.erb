@@ -8,7 +8,10 @@
   </div>
 
   <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <h3 class="mb-4"><%= @group.name %><%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %></h3>
+    <h3 class="mb-4"><%= @group.name %>
+      <%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %>
+      <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
+    </h3>
     <!-- link should go to trial page -->
 
     <div class="card-grid">

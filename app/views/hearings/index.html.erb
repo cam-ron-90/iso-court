@@ -1,0 +1,12 @@
+<h1>Hearings#index</h1>
+<p>Find me in app/views/hearings/index.html.erb</p>
+<br>
+
+<h3>Hearings History</h3>
+<br>
+
+<ol>
+  <% @hearings.each do |hearing| %>
+    <li>Date: <%= hearing.created_at %></li>
+  <% end %>
+</ol>

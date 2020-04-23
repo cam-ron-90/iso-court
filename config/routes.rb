@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :groups, except: [:edit, :update] do
     resources :charges, only: [:new, :create]
-    resources :hearings, only: [:show]
+    resources :hearings, only: [:index, :show]
   end
 
   resources :chatrooms, only: :show do
