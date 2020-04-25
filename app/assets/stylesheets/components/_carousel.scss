@@ -1,0 +1,33 @@
+.group-carousel {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  white-space: normal;
+  padding: 8px;
+  -webkit-box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
+  -moz-box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
+  box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
+
+  a {
+    transition: 0.5s;
+    &:hover {
+      text-decoration: none;
+      opacity: 0.6;
+    }
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.group-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE and Edge */
+.group-carousel {
+  -ms-overflow-style: none;
+}
+
+.carousel-card {
+  margin: 8px;
+  min-width: 300px !important;
+}

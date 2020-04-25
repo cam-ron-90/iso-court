@@ -13,7 +13,6 @@
       <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
       <%= link_to "CHATROOM", group_chatroom_path(@group, @group.chatroom), class: "ml-4 btn brown-btn" %>
     </h3>
-    <!-- link should go to trial page -->
 
     <div class="card-grid">
       <% @group.users.each do |user| %>
