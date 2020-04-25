@@ -1,17 +1,78 @@
-<h1>Hearings#show</h1>
-<p>Find me in app/views/hearings/show.html.erb</p>
+<div class="row m-0 p-0" style="height: 90vh">
 
-<% @hearing.user_charges.each do |usercharge| %>
-  <div class="container">
-    <% if usercharge.user.avatar.attached? %>
-      <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-large mt-4" %>
-    <% else %>
-      <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-large mt-4" %>
-    <% end %>
-    <li>Charged: <%= usercharge.user.username %></li>
-    <li>Type of felony: <%= usercharge.charge.category %></li>
-    <li>Charge description: <%= usercharge.charge.description %></li>
-    <li>Judge: <%= usercharge.judge.username %></li>
-    <li>Verdict: <%= usercharge.verdict %></li>
+  <div class="col-2 p-0" style="position: sticky; flex: 1">
+    <div style="height: 90vh; background-color: #224C8E">
+      <p>Space for sidebar</p>
+      <%#= render 'shared/left_sidebar' %>
+    </div>
   </div>
-<% end %>
+
+   <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <h3 class="mb-4">Let's start this week's hearing</h3>
+
+    <% @hearing.user_charges.each do |usercharge| %>
+      <div class="card">
+        <% if usercharge.user.avatar.attached? %>
+          <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-large mt-4" %>
+        <% else %>
+          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-large mt-4" %>
+        <% end %>
+        <li>Charged: <%= usercharge.user.username %></li>
+        <li>UserChargeID (TEST): <%= usercharge.id %></li>
+        <li>ChargeID (TEST): <%= usercharge.charge.id %></li>
+        <li>Type of felony: <%= usercharge.charge.category %></li>
+        <li>Charge description: <%= usercharge.charge.description %></li>
+        <li>Judge: <%= usercharge.judge.username %></li>
+        <li>Verdict: <%= usercharge.verdict %></li>
+
+        <div>
+
+          <!-- SOMETHING WRONG WITH THE USERCHARGE ID!!! -->
+          <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge=<%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+            GUILTY
+          </button>
+          <!-- SHOULD UPDATE VERDICT -->
+          <%= link_to "NOT GUILTY", "#", class: "btn brown-btn" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <p>Space for scoreboards</p>
+    <%#= render partial: "shared/scoreboard" %>
+    <%#= render 'shared/commitments' %>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="my-modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel"></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'newsentenceform-partial' %>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  modalbtns = document.querySelectorAll('#sentenceModal')
+  // SOMETHING WRONG WITH THE USERCHARGE ID!!!
+  modalbtns.forEach(btn => {
+    btn.addEventListener('click', (event) => {
+      let name = event.target.dataset["name"];
+      let userCharge = event.target.dataset["usercharge"];
+
+      document.querySelector(".modal-title").innerText = "Sentence " + name;
+      document.getElementById("sentence_user_charge").value = userCharge;
+    });
+  });
+</script>

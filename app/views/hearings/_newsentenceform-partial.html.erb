@@ -1,0 +1,17 @@
+<!-- SHOULD UPDATE VERDICT -->
+
+ <!-- SOMETHING WRONG WITH THE USERCHARGE ID!!! -->
+<div class="container">
+  <%= simple_form_for [Sentence.new] do |f| %>
+  <div class="form-card">
+    <%= f.input :user_charge, as: :hidden %>
+    <%= f.input :description %>
+    <%= f.button :submit, 'SENTENCE', class: "orange-btn" %>
+  </div>
+  <% end %>
+</div>
+
+<h3>
+charge_id
+usercharge_id
+</h3>
