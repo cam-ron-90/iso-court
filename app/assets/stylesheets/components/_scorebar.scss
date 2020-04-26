@@ -1,0 +1,44 @@
+.score-bar {
+  height: 12px;
+  // width: 10%;
+  border-radius: 25px;
+  background-color: #FF8A65;
+}
+
+.empty-score-filler {
+  height: 12px;
+  border-radius: 25px 25px 25px 25px;
+  background-color: rgb(200, 200, 200);
+}
+
+.commitments-filler {
+  height: 12px;
+  border-radius: 25px 0px 0px 25px;
+  background-color: #FFE082;
+}
+
+.charges-filler {
+  height: 12px;
+  // border-radius: 0px 0px 0px 0px;
+  background-color: #224C8E;
+}
+
+.card-subtitle {
+  font-weight: lighter;
+}
+
+.score-card {
+  border-radius: 20px !important;
+}
+
+.begin-radius {
+  border-radius: 25px 0px 0px 25px;
+}
+
+.begin-end-radius {
+  border-radius: 25px 25px 25px 25px;
+}
+
+.end-radius {
+  border-radius: 0px 25px 25px 0px
+}

@@ -15,8 +15,43 @@ class User < ApplicationRecord
 
   has_many :user_charges
   has_many :charges, through: :user_charges
+  has_many :sentences, through: :user_charges
+
+  has_many :user_commitments
+  has_many :commitments, through: :user_commitments
 
   def admin_groups
     Group.where(admin: self)
+  end
+
+  def setting_total
+    commitments.count.to_f + charges.count + sentences.count
+  end
+
+  def commitments_score
+    if setting_total == 0
+      return 0
+    else
+      score = (commitments.count.to_f / setting_total) * 100
+      score.round
+    end
+  end
+
+  def charges_score
+    if setting_total == 0
+      return 0
+    else
+      score = (charges.count.to_f / setting_total) * 100
+      score.round
+    end
+  end
+
+  def sentences_score
+    if setting_total == 0
+      return 0
+    else
+      score = (sentences.count.to_f / setting_total) * 100
+      score.round
+    end
   end
 end
