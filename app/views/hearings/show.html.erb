@@ -10,7 +10,7 @@
    <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
     <h3 class="mb-4">Let's start this week's hearing</h3>
 
-    <% @hearing.user_charges.each do |usercharge| %>
+    <% @hearing.user_charges.order(:user_id).each do |usercharge| %>
       <div class="card">
         <% if usercharge.user.avatar.attached? %>
           <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-large mt-4" %>
@@ -26,13 +26,11 @@
         <li>Verdict: <%= usercharge.verdict %></li>
 
         <div>
-
-          <!-- SOMETHING WRONG WITH THE USERCHARGE ID!!! -->
-          <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge=<%= usercharge.id %> data-name= <%= usercharge.user.username %> >
-            GUILTY
-          </button>
-          <!-- SHOULD UPDATE VERDICT -->
-          <%= link_to "NOT GUILTY", "#", class: "btn brown-btn" %>
+        <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+          GUILTY
+        </button>
+        <!-- SHOULD UPDATE VERDICT -->
+        <%= link_to "NOT GUILTY", "#", class: "btn brown-btn" %>
         </div>
       </div>
     <% end %>
@@ -64,15 +62,15 @@
 
 
 <script>
-  modalbtns = document.querySelectorAll('#sentenceModal')
+  sentenceBtns = document.querySelectorAll('#sentenceModal')
   // SOMETHING WRONG WITH THE USERCHARGE ID!!!
-  modalbtns.forEach(btn => {
+  sentenceBtns.forEach(btn => {
     btn.addEventListener('click', (event) => {
       let name = event.target.dataset["name"];
       let userCharge = event.target.dataset["usercharge"];
 
       document.querySelector(".modal-title").innerText = "Sentence " + name;
-      document.getElementById("sentence_user_charge").value = userCharge;
+      document.getElementById("sentence_user_charge_id").value = userCharge;
     });
   });
 </script>
