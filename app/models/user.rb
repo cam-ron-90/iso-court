@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :user_groups, dependent: :destroy
   has_many :groups, through: :user_groups
 
+  has_many :user_charges
+  has_many :charges, through: :user_charges
+
   def admin_groups
     Group.where(admin: self)
   end

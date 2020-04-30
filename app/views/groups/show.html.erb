@@ -1,0 +1,95 @@
+<div class="row m-0 p-0" style="height: 90vh">
+
+  <div class="col-2 p-0" style="position: sticky; flex: 1">
+    <div style="height: 90vh; background-color: #224C8E">
+      <p>Space for sidebar</p>
+      <%#= render 'shared/left_sidebar' %>
+    </div>
+  </div>
+
+  <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <h3 class="mb-4"><%= @group.name %>
+      <%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %>
+      <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
+      <%= link_to "CHATROOM", group_chatroom_path(@group, @group.chatroom), class: "ml-4 btn brown-btn" %>
+    </h3>
+    <!-- link should go to trial page -->
+
+    <div class="card-grid">
+      <% @group.users.each do |user| %>
+        <% next if user == current_user %>
+
+        <div class="card align-items-center" >
+          <% if user.avatar.attached? %>
+            <%= cl_image_tag user.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title text-center mb-1"><%= user.username %></h5>
+
+            <!--  CODE FOR SCORE PILL
+            <p class="card-text">
+            <div class="score-bar d-flex flex-row">
+              <div class="commitments-filler" style="width: <%#= user.commitments_score %>%;">
+              </div>
+              <div class="charges-filler" style="width: <%#= user.charges_score %>%;">
+              </div>
+            </div>
+            <h6 class="card-subtitle mt-2 text-center"><%#= user.commitments.count %> commitments</h6>
+            <h6 class="card-subtitle mt-2 text-center"><%#= user.charges.count %> charges</h6>
+            <h6 class="card-subtitle mt-2 text-center"><%#= user.sentences.count %> sentences</h6>
+            </p>
+            -->
+
+            <!-- Modal button -->
+            <div class="text-center">
+              <button type="button" class="btn orange-btn" id="btnModal" data-toggle="modal" data-target="#my-modal" data-val=<%= user.id %> data-name= <%= user.username %> >
+                SNITCH EM UP'
+              </button>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <p>Space for scoreboards</p>
+    <%#= render partial: "shared/scoreboard" %>
+    <%#= render 'shared/commitments' %>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="my-modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel"></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'newchargeform-partial' %>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  modalbtns = document.querySelectorAll('#btnModal')
+
+  modalbtns.forEach(btn => {
+    btn.addEventListener('click', (event) => {
+      let name = event.target.dataset["name"];
+      let value = event.target.dataset["val"];
+
+      document.querySelector(".modal-title").innerText = "Snitch " + name;
+      document.getElementById("charge_user_ids").value = value;
+    });
+  });
+</script>
