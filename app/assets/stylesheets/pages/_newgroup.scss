@@ -20,6 +20,19 @@
   }
 }
 
+.search-form-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  label {
+    flex: 100 0 auto;
+  }
+  input {
+    margin-left: 16px;
+    flex-grow: 100;
+  }
+}
+
 // Checkboxes design
 .user-choices {
   display: flex;

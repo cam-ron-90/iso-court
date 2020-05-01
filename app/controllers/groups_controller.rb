@@ -9,6 +9,13 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
+
+    if params[:query]
+      sql_query = "username ILIKE :query"
+      @users = User.where(sql_query, query: "%#{params[:query]}%")
+    else
+      @users = User.all
+    end
   end
 
   def create
