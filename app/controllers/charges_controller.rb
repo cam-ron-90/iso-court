@@ -11,6 +11,7 @@ class ChargesController < ApplicationController
 
     @user_charge = UserCharge.new
     @user_charge.hearing = @charge.group.hearings.last
+    @user_charge.verdict = "Pending"
     @user = User.find(params[:charge][:user_ids].to_i)
     @user_charge.judge  = @charge.group.users.all.select{ |x| x != @user }.sample
 

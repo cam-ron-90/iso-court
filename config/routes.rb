@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get 'laws/new'
   get 'laws/create'
   get 'laws/destroy'
-  get 'sentences/new'
-  get 'sentences/create'
+  # get 'sentences/new'
+  # post 'sentences/create'
   get 'sentences/destroy'
   get 'charges/destroy'
   get 'commitments/new'
@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   get 'commitments/edit'
   get 'commitments/update'
 
+  resources :sentences, only: [:new, :create]
+
   devise_for :users
-  root to: 'pages#home'
+  root to: 'groups#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :groups, except: [:edit, :update] do
     resources :charges, only: [:new, :create]
