@@ -10,32 +10,37 @@
    <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
     <h3 class="mb-4">Let's start this week's hearing</h3>
 
-    <% @hearing.user_charges.each do |usercharge| %>
-      <div class="card">
-        <% if usercharge.user.avatar.attached? %>
-          <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-large mt-4" %>
-        <% else %>
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-large mt-4" %>
-        <% end %>
-        <li>Charged: <%= usercharge.user.username %></li>
-        <li>UserChargeID (TEST): <%= usercharge.id %></li>
-        <li>ChargeID (TEST): <%= usercharge.charge.id %></li>
-        <li>Type of felony: <%= usercharge.charge.category %></li>
-        <li>Charge description: <%= usercharge.charge.description %></li>
-        <li>Judge: <%= usercharge.judge.username %></li>
-        <li>Verdict: <%= usercharge.verdict %></li>
+    <div class="card-grid">
+      <% @hearing.user_charges.order(:user_id).each do |usercharge| %>
+        <div class="card align-items-center">
+          <% if usercharge.user.avatar.attached? %>
+            <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
+          <% end %>
+          <li>Charged: <%= usercharge.user.username %></li>
+          <li>Type of felony: <%= usercharge.charge.category %></li>
+          <li>Charge description: <%= usercharge.charge.description %></li>
+          <li>Judge: <%= usercharge.judge.username %></li>
+          <li>Verdict: <%= usercharge.verdict %></li>
 
-        <div>
-
-          <!-- SOMETHING WRONG WITH THE USERCHARGE ID!!! -->
-          <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge=<%= usercharge.id %> data-name= <%= usercharge.user.username %> >
-            GUILTY
-          </button>
-          <!-- SHOULD UPDATE VERDICT -->
-          <%= link_to "NOT GUILTY", "#", class: "btn brown-btn" %>
+          <div>
+            <% if usercharge.verdict == "Pending" %>
+              <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+              GUILTY
+              </button>
+              <%= link_to "NOT GUILTY",  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
+            <% elsif usercharge.verdict == "Not guilty" %>
+              <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+              WAIT A MINUTE...<br />YOU'RE GUILTY!
+              </button>
+            <% else %>
+              <%= link_to "JUDICIAL ERROR...<br />SORRY BRO".html_safe,  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
   <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
@@ -64,15 +69,15 @@
 
 
 <script>
-  modalbtns = document.querySelectorAll('#sentenceModal')
+  sentenceBtns = document.querySelectorAll('#sentenceModal')
   // SOMETHING WRONG WITH THE USERCHARGE ID!!!
-  modalbtns.forEach(btn => {
+  sentenceBtns.forEach(btn => {
     btn.addEventListener('click', (event) => {
       let name = event.target.dataset["name"];
       let userCharge = event.target.dataset["usercharge"];
 
       document.querySelector(".modal-title").innerText = "Sentence " + name;
-      document.getElementById("sentence_user_charge").value = userCharge;
+      document.getElementById("sentence_user_charge_id").value = userCharge;
     });
   });
 </script>

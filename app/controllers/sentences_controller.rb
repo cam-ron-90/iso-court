@@ -5,15 +5,15 @@ class SentencesController < ApplicationController
 
   def create
     @sentence = Sentence.new(sentence_params)
-    @user_charge = UserCharge.find(params["sentence"]["user_charge"])
+    @user_charge = UserCharge.find(params["sentence"]["user_charge_id"])
     @sentence.user_charge = @user_charge
     @sentence.charge = @user_charge.charge
-    # @sentence.charge = Charge.find(params[:charge_id])
     @user_charge.update(verdict: 'Guilty')
-    #raise
+
     if @sentence.save
       redirect_to request.referer
     else
+      # new doesn't exist, should re-render modal
       render :new
     end
   end
@@ -26,6 +26,6 @@ class SentencesController < ApplicationController
   private
 
   def sentence_params
-    params.require(:sentence).permit(:description, :user_charge_id, :charge_id)
+    params.require(:sentence).permit(:description)
   end
 end

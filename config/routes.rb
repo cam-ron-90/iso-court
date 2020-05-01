@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get 'user_charge/update'
   # get 'groups', to: 'groups#index'
   # get 'groups/new'
   # get 'groups/create'
@@ -17,6 +18,8 @@ Rails.application.routes.draw do
   get 'commitments/update'
 
   resources :sentences, only: [:new, :create]
+
+  resources :user_charge, only: [:update]
 
   devise_for :users
   root to: 'groups#index'

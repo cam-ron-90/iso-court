@@ -27,19 +27,29 @@
           <div class="card-body">
             <h5 class="card-title text-center mb-1"><%= user.username %></h5>
 
-            <!--  CODE FOR SCORE PILL
+            <!-- CODE FOR SCORE PILL -->
             <p class="card-text">
             <div class="score-bar d-flex flex-row">
-              <div class="commitments-filler" style="width: <%#= user.commitments_score %>%;">
-              </div>
-              <div class="charges-filler" style="width: <%#= user.charges_score %>%;">
-              </div>
+              <% if user.commitments.count.zero? && user.charges.count.zero? && user.sentences.count.zero? %>
+                <div class="empty-score-filler" style="width: 100%;"></div>
+              <% elsif user.commitments.count.zero? && user.sentences.count.zero? %>
+                <div class="charges-filler begin-end-radius" style="width: <%= user.charges_score %>%;"></div>
+              <% elsif user.commitments.count.zero? %>
+                <div class="charges-filler begin-radius" style="width: <%= user.charges_score %>%;"></div>
+              <% elsif user.sentences.count.zero? %>
+                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+                <div class="charges-filler end-radius" style="width: <%= user.charges_score %>%;"></div>
+              <% else %>
+                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+                <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div>
+              <% end %>
+              <!-- <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div> -->
             </div>
-            <h6 class="card-subtitle mt-2 text-center"><%#= user.commitments.count %> commitments</h6>
-            <h6 class="card-subtitle mt-2 text-center"><%#= user.charges.count %> charges</h6>
-            <h6 class="card-subtitle mt-2 text-center"><%#= user.sentences.count %> sentences</h6>
+            <h6 class="card-subtitle mt-2 text-center"><%= user.commitments.count %> commitments</h6>
+            <h6 class="card-subtitle mt-2 text-center"><%= user.charges.count %> charges</h6>
+            <h6 class="card-subtitle mt-2 text-center"><%= user.sentences.count %> sentences</h6>
             </p>
-            -->
+
 
             <!-- Modal button -->
             <div class="text-center">
