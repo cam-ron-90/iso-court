@@ -25,7 +25,7 @@
         <% @groups.each do |group| %>
           <div class="card align-items-center carousel-card" >
             <% if group.admin.avatar.attached? %>
-              <%= cl_image_tag user.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
+              <%= cl_image_tag group.admin.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
             <% else %>
               <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
             <% end %>
