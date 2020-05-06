@@ -4,6 +4,8 @@ class Group < ApplicationRecord
   has_many :user_groups
   has_many :users, through: :user_groups
 
+  has_many :laws
+
   has_many :hearings
   has_one :chatroom
 

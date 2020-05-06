@@ -1,0 +1,8 @@
+<div class="container">
+  <%= simple_form_for([@group, @law], remote: true) do |f| %>
+  <div class="form-card">
+    <%= f.input :name %>
+    <%= f.button :submit, 'SET LAW', class: "brown-btn" %>
+  </div>
+  <% end %>
+</div>

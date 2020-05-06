@@ -3,6 +3,17 @@
   <div class="col-2 p-0" style="position: sticky; flex: 1">
     <div style="height: 90vh; background-color: #224C8E">
       <p>Space for sidebar</p>
+      <div class="laws">
+        <h4>LAWS</h4>
+        <ul class="laws-list">
+          <% unless @group.laws.empty? %>
+            <% @group.laws.each do |law| %>
+            <li><%= law.name %></li>
+            <% end %>
+          <% end %>
+        </ul>
+        <%= render 'newlawform-partial' %>
+      </div>
       <%#= render 'shared/left_sidebar' %>
     </div>
   </div>
