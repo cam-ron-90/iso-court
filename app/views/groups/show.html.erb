@@ -1,17 +1,23 @@
 <div class="row m-0 p-0" style="height: 90vh">
 
   <div class="col-2 p-0" style="position: sticky; flex: 1">
-    <div style="height: 90vh; background-color: #224C8E">
-      <p>Space for sidebar</p>
+    <div style="height: 90vh; background-color: #224C8E; padding: 10px">
+      <!-- <p>Space for sidebar</p> -->
       <div class="laws">
-        <h4>LAWS</h4>
-        <ul class="laws-list">
-          <% unless @group.laws.empty? %>
-            <% @group.laws.each do |law| %>
-            <li><%= law.name %></li>
+        <%#= render 'laws-scroll-partial' %>
+        <h2>LAWS</h2>
+        <section>
+           <div class="laws-list">
+            <% unless @group.laws.empty? %>
+            <% num = 1 %>
+              <% @group.laws.each do |law| %>
+                <p><%= num %>. <%= law.name %></p>
+                <% num += 1 %>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </div>
+        </section>
+
         <%= render 'newlawform-partial' %>
       </div>
       <%#= render 'shared/left_sidebar' %>
@@ -111,5 +117,15 @@
       document.querySelector(".modal-title").innerText = "Snitch " + name;
       document.getElementById("charge_user_ids").value = value;
     });
+  });
+</script>
+
+<script>
+  const scroll = document.querySelector(".l-scroll");
+
+  const content = document.querySelector(".c-scroll__content");
+
+  scroll.addEventListener('click', (event) => {
+    content.classList.toggle('c-scroll__content--active');
   });
 </script>
