@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   # get 'groups/new'
   # get 'groups/create'
   # get 'groups/destroy'
-  get 'laws/new'
-  get 'laws/create'
-  get 'laws/destroy'
+  # get 'laws/new'
+  # get 'laws/create'
+  # get 'laws/destroy'
   # get 'sentences/new'
   # post 'sentences/create'
   get 'sentences/destroy'
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :commitments, only: [:new, :create]
     resources :charges, only: [:new, :create]
     resources :hearings, only: [:index, :show, :new, :create]
+    resources :laws, only: [:create, :destroy]
     resources :chatrooms, only: :show do
       resources :messages, only: :create
     end
