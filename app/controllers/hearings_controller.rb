@@ -5,6 +5,19 @@ class HearingsController < ApplicationController
     # CURRENT HEARING SHOULDN'T BE DISPLAYED
   end
 
+  def new
+    @hearing = Hearing.new
+  end
+
+  def create
+    @hearing = Hearing.new
+    @hearing.group = Group.find(params[:group_id])
+
+    if @hearing.save
+      redirect_to new_group_commitment_path
+    end
+  end
+
   def show
     @hearing = Hearing.find(params[:id])
   end

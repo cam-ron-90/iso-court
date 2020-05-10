@@ -3,19 +3,21 @@ class CommitmentsController < ApplicationController
 
   def new
     @commitment = Commitment.new
+    @group = Group.find(params[:group_id])
   end
 
   def create
     @commitment = Commitment.new(commitment_params)
-    @commitment.group = Group.find(params[:user_id])
-    @commitment.hearing = Group.find(params[:user_id]).hearings.last
+    @commitment.group = Group.find(params[:group_id])
+    @commitment.hearing = @commitment.group.hearings.last
     @user_commitment = UserCommitment.new
-    @user = User.find(params[:user_id])
+
+    @user = User.find(params[:commitment][:user_ids])
 
     if @commitment.save
       @user_commitment.commitment = @commitment
       @user_commitment.user = @user
-      @user_commitment.save
+      @user_commitment.save!
 
       redirect_to request.referer
     else
@@ -45,6 +47,6 @@ class CommitmentsController < ApplicationController
   end
 
   def commitment_params
-    params.require(:commitment).permit(:category, :description, :status)
+    params.require(:commitment).permit(:category, :description, :status, :user_id, :group_id, :hearing_id)
   end
 end

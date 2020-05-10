@@ -1,0 +1,13 @@
+<div class="container">
+  <%= simple_form_for [@group, Commitment.new] do |f| %>
+  <div class="form-card">
+    <%= f.association :users, as: :hidden %>
+    <%= f.input :category, as: :radio_buttons, collection: ["Hygiene", "Media",
+      "Information", "Social distancing", "Calm approach",
+      "Fight boredom", "Positive focus", "Social connection", "Physical activity",
+      "Work from home", "Tidying"] %>
+    <%= f.input :description %>
+    <%= f.button :submit, 'Commit', class: "brown-btn" %>
+  </div>
+  <% end %>
+</div>

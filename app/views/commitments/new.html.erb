@@ -1,2 +1,101 @@
-<h1>Commitments#new</h1>
-<p>Find me in app/views/commitments/new.html.erb</p>
+<div class="row m-0 p-0" style="height: 90vh">
+
+  <div class="col-2 p-0" style="position: sticky; flex: 1">
+    <div style="height: 90vh; background-color: #224C8E">
+      <p>Space for sidebar</p>
+      <%#= render 'shared/left_sidebar' %>
+    </div>
+  </div>
+
+  <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <h3 class="mb-4">Make your Weekly Commitment <%= link_to "END TRIAL", group_path(@group), class: "btn brown-btn" %></h3>
+
+    <div class="card-grid">
+      <% @group.users.each do |user| %>
+        <%# next if user == current_user %>
+
+        <div class="card align-items-center" >
+          <% if user.avatar.attached? %>
+            <%= cl_image_tag user.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
+          <% else %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title text-center mb-1"><%= user.username %></h5>
+            <p>Commitment: <%= user.user_commitments.last.commitment.category if user.commitments.last.hearing == @group.hearings.last%></p>
+
+            <!-- CODE FOR SCORE PILL -->
+            <!-- <p class="card-text">
+            <div class="score-bar d-flex flex-row">
+              <#% if user.commitments.count.zero? && user.charges.count.zero? && user.sentences.count.zero? %>
+                <div class="empty-score-filler" style="width: 100%;"></div>
+              <#% elsif user.commitments.count.zero? && user.sentences.count.zero? %>
+                <div class="charges-filler begin-end-radius" style="width: <%= user.charges_score %>%;"></div>
+              <#% elsif user.commitments.count.zero? %>
+                <div class="charges-filler begin-radius" style="width: <%= user.charges_score %>%;"></div>
+              <#% elsif user.sentences.count.zero? %>
+                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+                <div class="charges-filler end-radius" style="width: <%= user.charges_score %>%;"></div>
+              <#% else %>
+                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+                <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div>
+              <#% end %>
+              <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div> -->
+          <!--   </div> -->
+<!--
+            </p> -->
+
+
+            <!-- Modal button -->
+            <div class="text-center">
+              <button type="button" class="btn orange-btn" id="btnModal" data-toggle="modal" data-target="#my-modal" data-val=<%= user.id %> data-name= <%= user.username %> >
+                COMMIT EM UP'
+              </button>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+    <p>Space for scoreboards</p>
+    <%#= render partial: "shared/scoreboard" %>
+    <%#= render 'shared/commitments' %>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="my-modal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel"></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <!-- CREATE NEW COMMITMENT PARTIAL -->
+        <%= render 'newcommitmentform-partial' %>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  modalbtns = document.querySelectorAll('#btnModal')
+
+  modalbtns.forEach(btn => {
+    btn.addEventListener('click', (event) => {
+      let name = event.target.dataset["name"];
+      let value = event.target.dataset["val"];
+
+      document.querySelector(".modal-title").innerText = name + "'s Commitment";
+      document.getElementById("commitment_user_ids").value = value;
+    });
+  });
+</script>
