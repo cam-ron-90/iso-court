@@ -1,6 +1,6 @@
 # Making Users
 puts "Making Users"
-NAMES = ["Paal", "Manon", "Wes", "Cam", "Sy", "Nico", "Harry", "Euan", "Stacy", "Ben"]
+NAMES = ["Paal", "Manon", "Wes", "Cam", "Sy", "Nico", "Harry", "Euan", "Juliette", "Ben"]
 NAMES.each do |name|
   User.create(username: name, password: "password", email: "#{name}@user.com")
   puts "Email: #{User.last.email}"

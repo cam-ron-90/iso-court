@@ -22,7 +22,7 @@
       <div class="form-group">
         <!-- <label class="control-label check_boxes optional">Invite your mates (add inline search bar to invite users)</label>
         <input type="hidden" name="group[user_ids][]" value=""> -->
-        <div class="user-choices row" id="ajax-search">
+        <div class="user-choices row" id="ajax-search" data-id="<%= current_user.id %>">
           <%= render 'newgroup-users-partial', collection: @users %>
          </div>
       </div>
@@ -44,13 +44,13 @@
 <%= javascript_pack_tag 'search' %>
 
 <!-- SCRIPT WORKS ONLY ON FIRST LOAD (not when the list is re-rendered) -->
-<script>
+<!-- <script>
   let choices = document.querySelectorAll(".user-choice")
   choices.forEach((choice) => {
     choice.addEventListener("click", (e) => {
       choice.classList.toggle("active");
     })
   })
-</script>
+</script> -->
 
 
