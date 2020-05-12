@@ -38,8 +38,8 @@ const addToggle = () => {
   newChoices.forEach((newchoice) => {
     newchoice.addEventListener("click", (e) => {
       newchoice.classList.toggle("active");
-      console.log(newchoice.parentNode);
       selectedUsers.insertAdjacentHTML('afterbegin', newchoice.parentNode.innerHTML);
+      newchoice.parentNode.remove();
     })
   })
 };
