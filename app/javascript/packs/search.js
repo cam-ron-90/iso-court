@@ -1,7 +1,8 @@
 const apiUrl = (query) => `http://localhost:3000/api/v1/users?query=${query}`;
-const searchBar = document.getElementById('query')
-const usersList = document.getElementById('ajax-search')
+const searchBar = document.getElementById('query');
+const usersList = document.getElementById('ajax-search');
 const currentUser = usersList.dataset["id"];
+const selectedUsers = document.getElementById('selected-users');
 
 const imgSrc = (user) => {
   if ( user.avatar ) {
@@ -37,6 +38,8 @@ const addToggle = () => {
   newChoices.forEach((newchoice) => {
     newchoice.addEventListener("click", (e) => {
       newchoice.classList.toggle("active");
+      console.log(newchoice.parentNode);
+      selectedUsers.insertAdjacentHTML('afterbegin', newchoice.parentNode.innerHTML);
     })
   })
 };
