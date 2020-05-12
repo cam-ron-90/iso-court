@@ -48,6 +48,20 @@
   }
 }
 
+.chosen_users {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 160px;
+  margin: 10px 0 30px 0;
+  .checkbox {
+    margin: 0px;
+    z-index: 0;
+    position: absolute;
+    visibility: hidden;
+  }
+}
+
 .user-choice {
   background: #b7b7b7;
   padding: 20px;

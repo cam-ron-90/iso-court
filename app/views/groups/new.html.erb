@@ -20,9 +20,7 @@
 
       <!-- User cards -->
       <div class="form-group">
-        <!-- <label class="control-label check_boxes optional">Invite your mates (add inline search bar to invite users)</label>
-        <input type="hidden" name="group[user_ids][]" value=""> -->
-        <div id="selected-users">Hello selected users</div>
+        <div class="chosen_users row" id="selected-users">Hello selected users</div>
         <div class="user-choices row" id="ajax-search" data-id="<%= current_user.id %>">
           <%= render 'newgroup-users-partial', collection: @users %>
          </div>

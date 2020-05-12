@@ -31,21 +31,23 @@ const userCard = (user) => {
       <i class="fa fa-check"></i>
     </label>
   </div>`
-}
+};
 
 const addToggle = () => {
   let newChoices = usersList.querySelectorAll(".user-choice");
   newChoices.forEach((newchoice) => {
     newchoice.addEventListener("click", (e) => {
+      let value = `group_user_ids_${newchoice.previousElementSibling.value}`;
       newchoice.classList.toggle("active");
-      selectedUsers.insertAdjacentHTML('afterbegin', newchoice.parentNode.innerHTML);
+      selectedUsers.insertAdjacentHTML('afterbegin', `<div class="col-3">${newchoice.parentElement.innerHTML}</div>`);
       newchoice.parentNode.remove();
+      document.getElementById(value).checked = true;
+      removeUser();
     })
   })
 };
 
 const refresh = (query) => {
-  // TODO: Implement the global refresh logic.
   if (query !== "") {
   fetch(apiUrl(query))
     .then(response => response.json())
@@ -58,8 +60,17 @@ const refresh = (query) => {
   }
 };
 
+const removeUser = () => {
+  let selectedCards = selectedUsers.querySelectorAll(".user-choice");
+  selectedCards.forEach((card) => {
+    card.addEventListener("click", (e) => {
+      e.currentTarget.parentNode.remove();
+    })
+  });
+};
+
 searchBar.addEventListener('input', (e) => {
   let query = e.currentTarget.value;
   refresh(query);
-})
+});
 
