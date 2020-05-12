@@ -22,23 +22,8 @@
       <div class="form-group">
         <!-- <label class="control-label check_boxes optional">Invite your mates (add inline search bar to invite users)</label>
         <input type="hidden" name="group[user_ids][]" value=""> -->
-        <div class="user-choices row">
-          <% @users.each do |user| %>
-            <% next if user == current_user %>
-
-            <div class="col-3">
-              <input class="checkbox" type="checkbox" value="<%= user.id %>" name="group[user_ids][]" id="group_user_ids_<%= user.id %>">
-              <label for="group_user_ids_<%= user.id %>" class="user-choice">
-                <%= user.username %>
-                <% if user.avatar.attached? %>
-                  <%= cl_image_tag user.avatar.key, class: "avatar-large" %>
-                <% else %>
-                  <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar-large" %>
-                <% end %>
-                <i class="fa fa-check"></i>
-              </label>
-            </div>
-          <% end %>
+        <div class="user-choices row" id="ajax-search" data-id="<%= current_user.id %>">
+          <%= render 'newgroup-users-partial', collection: @users %>
          </div>
       </div>
 
@@ -56,12 +41,16 @@
   </div>
 </div>
 
+<%= javascript_pack_tag 'search' %>
 
-<script>
+<!-- SCRIPT WORKS ONLY ON FIRST LOAD (not when the list is re-rendered) -->
+<!-- <script>
   let choices = document.querySelectorAll(".user-choice")
   choices.forEach((choice) => {
     choice.addEventListener("click", (e) => {
       choice.classList.toggle("active");
     })
   })
-</script>
+</script> -->
+
+

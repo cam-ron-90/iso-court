@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
       sql_query = "username ILIKE :query"
       @users = User.where(sql_query, query: "%#{params[:query]}%")
     else
-      @users = User.all
+      @users = []
     end
   end
 
