@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'turbolinks', '~> 5.2.0'
+gem 'pundit'
 
 gem 'cloudinary', '~> 1.12.0'
 
