@@ -1,0 +1,17 @@
+function refreshForm() {
+  let input = document.getElementById("law_name")
+  input.value = "";
+}
+
+function addLaw(lawHTML) {
+  console.log("hello from ajax2");
+  let laws = document.querySelector('.laws-list');
+  laws.insertAdjacentHTML('beforeend', lawHTML);
+}
+
+function ajaxLaws() {
+  addLaw(`<%= j render "laws/law-partial", num: Law.count, law: @law %>`);
+  refreshForm();
+}
+
+ajaxLaws();
