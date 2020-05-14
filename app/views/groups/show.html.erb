@@ -11,7 +11,7 @@
             <% unless @group.laws.empty? %>
             <% num = 1 %>
               <% @group.laws.each do |law| %>
-                <p><%= num %>. <%= law.name %></p>
+                <%= render 'laws/law-partial', num: num, law: law %>
                 <% num += 1 %>
               <% end %>
             <% end %>

@@ -8,7 +8,10 @@ class LawsController < ApplicationController
     @law.group = Group.find(params[:group_id])
 
     if @law.save
-      redirect_to group_path(@law.group)
+      respond_to do |format|
+        format.html { group_path(@law.group) }
+        format.js
+      end
     else
       render 'groups/show'
     end
