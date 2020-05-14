@@ -1,0 +1,41 @@
+<p class="card-text">
+  <div class="score-bar d-flex flex-row">
+    <% if user.commitments.count.zero? && user.charges.count.zero? && user.sentences.count.zero? %>
+      <div class="empty-score-filler" style="width: 100%;"></div>
+    <% elsif user.sentences.count.zero? && user.charges.count.zero? %>
+      <div class="commitments-filler begin-end-radius" style="width: <%= user.commitments_score %>%;"></div>
+    <% elsif user.commitments.count.zero? && user.sentences.count.zero? %>
+      <div class="charges-filler begin-end-radius" style="width: <%= user.charges_score %>%;"></div>
+    <% elsif user.commitments.count.zero? %>
+      <div class="charges-filler begin-radius" style="width: <%= user.charges_score %>%;"></div>
+    <% elsif user.sentences.count.zero? %>
+      <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+      <div class="charges-filler end-radius" style="width: <%= user.charges_score %>%;"></div>
+    <% else %>
+      <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
+      <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div>
+    <% end %>
+  </div>
+
+  <h6 class="card-subtitle mt-2 text-center">
+    <% if user.commitments.count <= 1 %>
+      <%= user.commitments.count %> commitment
+    <% else %>
+      <%= user.commitments.count %> commitments
+    <% end %>
+  </h6>
+  <h6 class="card-subtitle mt-2 text-center">
+    <% if user.charges.count <= 1 %>
+      <%= user.charges.count %> charge
+    <% else %>
+      <%= user.charges.count %> charges
+    <% end %>
+  </h6>
+  <h6 class="card-subtitle mt-2 text-center">
+    <% if user.sentences.count <= 1 %>
+      <%= user.sentences.count %> sentence
+    <% else %>
+      <%= user.sentences.count %> sentences
+    <% end %>
+  </h6>
+</p>
