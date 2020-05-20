@@ -1,12 +1,25 @@
-<h1>Hearings#index</h1>
-<p>Find me in app/views/hearings/index.html.erb</p>
-<br>
+<div class="row m-0 p-0" style="height: 90vh">
 
-<h3>Hearings History</h3>
-<br>
+  <!-- LEFT SIDEBARD -->
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
+    <%= render 'shared/left-sidebar', group: @group %>
+  </div>
 
-<ol>
-  <% @hearings.each do |hearing| %>
-    <li>Date: <%= hearing.created_at %></li>
-  <% end %>
-</ol>
+   <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
+    <h3 class="mb-4" style="font-family:'Roboto', sans-serif; color: #2E2E2E; text-align: center">Hearings History of <%= @group.name %></h3>
+
+    <br>
+    <p>Current session started on the <%= @current_hearing.created_at.strftime('%d/%m/%y') %>
+      and is due next: (insert day)
+    </p>
+
+    <br>
+    <p>Previous sessions</p>
+    <ol>
+      <% @hearings.each do |hearing| %>
+        <li>Date: <%= hearing.created_at %></li>
+      <% end %>
+    </ol>
+  </div>
+
+</div>

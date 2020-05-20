@@ -22,7 +22,7 @@
             <h5 class="card-title text-center mb-1"><%= user.username %></h5>
             <% if user.commitments.empty? %>
               <p>No previous record</p>
-            <% elsif user.commitments.last.hearing == @group.hearings.last %>
+            <% elsif user.commitments.last.hearing == @group.hearings[-2] %>
               <p>Last hearing commitment: <%= user.user_commitments.last.commitment.description %> </p>
             <% else %>
               <p>No commitments on the previous hearing</p>

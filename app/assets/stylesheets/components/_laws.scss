@@ -2,12 +2,10 @@
   text-align: center;
   position: relative;
   width: 85%;
-  max-height: 320px;
+  max-height: 270px;
   background-color: $iso-orange;
-  margin: 10px auto;
   padding: 10px;
   border-radius: 4px;
-  /*border-bottom: 3px solid #e6e6e6*/
   p {
     text-transform: uppercase;
     font-size: 14px;
@@ -38,7 +36,7 @@
 }
 
 .laws-list {
-  max-height: 160px;
+  max-height: 95px;
   overflow: scroll;
   color: $iso-brown;
 }
@@ -46,6 +44,10 @@
 .form-law {
   margin-top: 10px;
   text-align: center;
+  .brown-btn {
+    position: relative;
+    top: -7px;
+  }
 }
 
 #law_name {
