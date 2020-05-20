@@ -1,18 +1,16 @@
-<div class="row m-0 p-0" style="height: 90vh">
+<div class="row m-0 p-0" style="height: 100vh">
 
-  <div class="col-2 p-0" style="position: sticky; flex: 1">
-    <div style="height: 90vh; background-color: #224C8E">
-      <p>Space for sidebar</p>
-      <%#= render 'shared/left_sidebar' %>
-    </div>
+  <!-- LEFT SIDEBARD -->
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
+    <%= render 'shared/left-sidebar', group: @group %>
   </div>
 
-  <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+  <!-- CENTER CONTENT -->
+  <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
     <h3 class="mb-4">Make your Weekly Commitment <%= link_to "END TRIAL", group_path(@group), class: "btn brown-btn" %></h3>
 
     <div class="card-grid">
       <% @group.users.each do |user| %>
-        <%# next if user == current_user %>
 
         <div class="card align-items-center" >
           <% if user.avatar.attached? %>
@@ -22,29 +20,13 @@
           <% end %>
           <div class="card-body">
             <h5 class="card-title text-center mb-1"><%= user.username %></h5>
-            <p>Commitment: <%= user.user_commitments.last.commitment.category if user.commitments.last.hearing == @group.hearings.last%></p>
-
-            <!-- CODE FOR SCORE PILL -->
-            <!-- <p class="card-text">
-            <div class="score-bar d-flex flex-row">
-              <#% if user.commitments.count.zero? && user.charges.count.zero? && user.sentences.count.zero? %>
-                <div class="empty-score-filler" style="width: 100%;"></div>
-              <#% elsif user.commitments.count.zero? && user.sentences.count.zero? %>
-                <div class="charges-filler begin-end-radius" style="width: <%= user.charges_score %>%;"></div>
-              <#% elsif user.commitments.count.zero? %>
-                <div class="charges-filler begin-radius" style="width: <%= user.charges_score %>%;"></div>
-              <#% elsif user.sentences.count.zero? %>
-                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
-                <div class="charges-filler end-radius" style="width: <%= user.charges_score %>%;"></div>
-              <#% else %>
-                <div class="commitments-filler" style="width: <%= user.commitments_score %>%;"></div>
-                <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div>
-              <#% end %>
-              <div class="charges-filler" style="width: <%= user.charges_score %>%;"></div> -->
-          <!--   </div> -->
-<!--
-            </p> -->
-
+            <% if user.commitments.empty? %>
+              <p>No previous record</p>
+            <% elsif user.commitments.last.hearing == @group.hearings.last %>
+              <p>Last hearing commitment: <%= user.user_commitments.last.commitment.description %> </p>
+            <% else %>
+              <p>No commitments on the previous hearing</p>
+            <% end %>
 
             <!-- Modal button -->
             <div class="text-center">
@@ -57,12 +39,6 @@
         </div>
       <% end %>
     </div>
-  </div>
-
-  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <p>Space for scoreboards</p>
-    <%#= render partial: "shared/scoreboard" %>
-    <%#= render 'shared/commitments' %>
   </div>
 
 </div>
