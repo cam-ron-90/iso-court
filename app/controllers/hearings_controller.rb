@@ -1,8 +1,9 @@
 class HearingsController < ApplicationController
   def index
-    @hearings = Hearing.where(group: params[:group_id])
-    # NEEDS TO BE SORTED BY REVERSE CHRONOLOGICAL ORDER
-    # CURRENT HEARING SHOULDN'T BE DISPLAYED
+    hearings = Hearing.where(group: params[:group_id]).order(created_at: :desc)
+    @group = Group.find(params[:group_id])
+    @hearings = hearings - [@group.hearings.last]
+    @current_hearing = @group.hearings.last
   end
 
   def new
@@ -22,3 +23,11 @@ class HearingsController < ApplicationController
     @hearing = Hearing.find(params[:id])
   end
 end
+
+
+def filter_devices_id
+      @filtered = {}
+      @filtered[:device_id_not_supported] = params[:device_ids] - @devices.pluck(:id).map(&:to_s)
+      @filtered[:no_email] = @devices.ids.select { |id| @devices.find(id)&.customer&.email.blank? }
+      @devices = Device.where(id: @devices.pluck(:id) - @filtered[:no_email])
+    end

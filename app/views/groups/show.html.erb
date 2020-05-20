@@ -1,4 +1,4 @@
-<div class="row m-0 p-0" style="height: 90vh">
+<div class="row m-0 p-0" style="height: 100vh">
 
   <!-- LEFT SIDEBARD -->
   <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
@@ -6,7 +6,7 @@
   </div>
 
   <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
-    <h3 class="mb-4"><%= @group.name %>
+    <h3 style="font-family:'Roboto', sans-serif; color: #2E2E2E; text-align: center"><%= @group.name %>
       <%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %>
       <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
       <%= link_to "CHATROOM", group_chatroom_path(@group, @group.chatroom), class: "ml-4 btn brown-btn" %>
