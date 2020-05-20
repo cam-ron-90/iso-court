@@ -10,7 +10,7 @@ function addLaw(lawHTML) {
 }
 
 function ajaxLaws() {
-  addLaw(`<%= j render "laws/law-partial", num: Law.count, law: @law %>`);
+  addLaw(`<%= j render "laws/law-partial", num: Law.last.group.laws.count, law: @law %>`);
   refreshForm();
 }
 

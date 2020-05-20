@@ -1,7 +1,9 @@
 .sign-up-page {
   background-color: $iso-blue;
-  min-height: calc(100vh - 66px);
+  min-height: calc(100vh);
+  width: 100vw;
   align-items: center;
+  margin: 0px !important;
 }
 
 .sign-up-form {

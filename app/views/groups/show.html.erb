@@ -1,37 +1,18 @@
 <div class="row m-0 p-0" style="height: 90vh">
 
-  <div class="col-2 p-0" style="position: sticky; flex: 1">
-    <div style="height: 90vh; background-color: #224C8E; padding: 10px">
-      <!-- <p>Space for sidebar</p> -->
-      <div class="laws">
-        <%#= render 'laws-scroll-partial' %>
-        <h2>LAWS</h2>
-        <section>
-           <div class="laws-list">
-            <% unless @group.laws.empty? %>
-            <% num = 1 %>
-              <% @group.laws.each do |law| %>
-                <%= render 'laws/law-partial', num: num, law: law %>
-                <% num += 1 %>
-              <% end %>
-            <% end %>
-          </div>
-        </section>
-
-        <%= render 'newlawform-partial' %>
-      </div>
-      <%#= render 'shared/left_sidebar' %>
-    </div>
+  <!-- LEFT SIDEBARD -->
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
+    <%= render 'shared/left-sidebar', group: @group %>
   </div>
 
-  <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
+  <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
     <h3 class="mb-4"><%= @group.name %>
       <%= link_to "START TRIAL", group_hearing_path(@group, @group.hearings.last), class: "ml-4 btn brown-btn" %>
       <%= link_to "HEARINGS HISTORY", group_hearings_path(@group), class: "ml-4 btn orange-btn" %>
       <%= link_to "CHATROOM", group_chatroom_path(@group, @group.chatroom), class: "ml-4 btn brown-btn" %>
     </h3>
 
-    <div class="card-grid">
+    <div class="card-grid p-4">
       <% @group.users.each do |user| %>
         <% next if user == current_user %>
 
@@ -58,12 +39,6 @@
         </div>
       <% end %>
     </div>
-  </div>
-
-  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <p>Space for scoreboards</p>
-    <%#= render partial: "shared/scoreboard" %>
-    <%#= render 'shared/commitments' %>
   </div>
 
 </div>
@@ -99,7 +74,7 @@
   });
 </script>
 
-<script>
+<!-- <script>
   const scroll = document.querySelector(".l-scroll");
 
   const content = document.querySelector(".c-scroll__content");
@@ -107,4 +82,4 @@
   scroll.addEventListener('click', (event) => {
     content.classList.toggle('c-scroll__content--active');
   });
-</script>
+</script> -->

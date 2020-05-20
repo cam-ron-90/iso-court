@@ -10,10 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
   </head>
-  <body>
-    <%= render 'shared/navbar' %>
+  <body style="background-color: #F2F2F2;">
     <%= render 'shared/flashes' %>
     <%= yield %>
+
+    <script>
+      let nav = document.querySelector(".navbar-nav");
+      if (window.location.href.startsWith("http://localhost:3000/groups")) {
+        nav.querySelectorAll(".navbar-brand")[0].classList.add("nav-active");
+      } else if (window.location.href.startsWith("http://localhost:3000/users")) {
+        nav.querySelectorAll(".navbar-brand")[1].classList.add("nav-active");
+      } else if (window.location.href.startsWith("http://localhost:3000/notices")) {
+        nav.querySelectorAll(".navbar-brand")[2].classList.add("nav-active");
+      } else {
+        nav.querySelectorAll(".navbar-brand")[3].classList.add("nav-active");
+      };
+    </script>
 
     <%= javascript_pack_tag 'application' %>
   </body>
