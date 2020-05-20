@@ -1,0 +1,17 @@
+<div class="row m-0 p-0" style="height: 90vh">
+
+  <!-- LEFT SIDEBARD -->
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
+    <%= render 'shared/left-sidebar' %>
+  </div>
+
+  <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
+    <h3 class="mb-4">Hello <%= current_user.username %>
+    </h3>
+
+    <div class="card-grid p-4">
+      <h2>Add stuff</h2>
+    </div>
+  </div>
+
+</div>

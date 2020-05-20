@@ -1,6 +1,6 @@
 <% @law = Law.new %>
-<div class="container">
-  <%= simple_form_for([@group, @law], remote: true) do |f| %>
+<div>
+  <%= simple_form_for([group, @law], remote: true) do |f| %>
   <div class="form-law">
     <%= f.input :name, label: false %>
     <%= f.button :submit, 'SET LAW', class: "brown-btn" %>

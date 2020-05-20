@@ -1,0 +1,69 @@
+.left-sidebar {
+  height: 100vh;
+  background-color: #224C8E;
+  overflow: scroll;
+}
+
+a {
+  &:hover {
+    text-decoration: none !important;
+  }
+}
+
+.navbar {
+  height: 10vh;
+}
+
+.navbar-lewagon {
+  background: white;
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-brand {
+  display: flex;
+  background-color: #2C2D2D;
+  border-bottom: solid 1px #224C8E;
+  padding: 4px 24px;
+  margin-right: 0px !important;
+  h2 {
+    margin-top: 0.5rem !important;
+  }
+  &.nav-active {
+    background-color: #FF8965 !important;
+  }
+}
+
+.logo {
+  display: flex;
+  background-color: #2C2D2D;
+  padding: 4px 24px;
+  margin-right: 0px !important;
+  h2 {
+    margin-top: 0.5rem !important;
+  }
+}
+
+.navbar-nav {
+  h5 {
+    font-size: 14px;
+    a {
+      color: white;
+    }
+  }
+}
+
+.dropdown-toggle {
+  margin: 0.3rem 0;
+}
+
+#navbarDropdown {
+  margin: 0px;
+}
+
+.dropdown-toggle::after {
+  visibility: hidden !important;
+}
+

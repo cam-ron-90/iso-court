@@ -2,18 +2,32 @@
   overflow-x: scroll;
   overflow-y: hidden;
   display: flex;
-  white-space: normal;
   padding: 8px;
-  -webkit-box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
-  -moz-box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
-  box-shadow: inset -13px 10px 5px -15px rgba(136, 136, 136, 0.88);
+  -webkit-box-shadow: inset 0px 0px 12px -4px rgba(136, 136, 136, 0.88);
+  -moz-box-shadow: inset 0px 0px 12px -4px rgba(136, 136, 136, 0.88);
+  box-shadow: inset 0px 0px 12px -4px rgba(136, 136, 136, 0.88);
+
+  .carousel-card {
+    margin: 8px;
+    min-width: 250px !important;
+    max-height: 250px !important;
+    transition: 0.5s;
+    cursor: pointer !important;
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
 
   a {
-    transition: 0.5s;
-    &:hover {
-      text-decoration: none;
-      opacity: 0.6;
-    }
+    padding: 0px !important;
+    text-decoration: none !important;
+  }
+
+  h5 {
+    color: $iso-orange;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
   }
 }
 
@@ -25,9 +39,4 @@
 /* Hide scrollbar for IE and Edge */
 .group-carousel {
   -ms-overflow-style: none;
-}
-
-.carousel-card {
-  margin: 8px;
-  min-width: 300px !important;
 }

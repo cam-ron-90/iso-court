@@ -1,71 +1,61 @@
 <div class="row m-0 p-0" style="height: 90vh">
 
-  <!-- LEFT SIDEBAR -->
-  <div class="col-2 p-0" style="position: sticky; flex: 1">
-    <div style="height: 90vh; background-color: #224C8E">
-      <p>Space for sidebar</p>
-      <%#= render 'shared/left_sidebar' %>
-    </div>
+  <!-- LEFT SIDEBARD -->
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
+    <%= render 'shared/left-sidebar' %>
   </div>
 
   <!-- CENTER CONTENT -->
-  <!-- HEADER -->
-  <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <h3 class="mb-4">Your Teams
-      <%= link_to "BUTTON 1", "#", class: "ml-4 btn brown-btn" %>
-      <%= link_to "BUTTON 2", "#", class: "ml-4 btn orange-btn" %>
-      <%= link_to "BUTTON 3", "#", class: "ml-4 btn brown-btn" %>
-    </h3>
-
+  <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
+    <h3 class="mb-4" style="font-family:'Roboto', sans-serif; color: #2E2E2E; text-align: center">YOUR TEAMS</h3>
     <!-- GROUPS LIST -->
     <% if current_user.groups.length.zero? %>
       <h3>You don't belong to any group rn 😭</h3>
     <% else %>
       <div class="group-carousel">
+
         <% @groups.each do |group| %>
-          <div class="card align-items-center carousel-card" >
-            <% if group.admin.avatar.attached? %>
-              <%= cl_image_tag group.admin.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
-            <% else %>
-              <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
-            <% end %>
-            <div class="card-body">
-              <h5 class="card-title text-center mb-1"><%= group.name %></h5>
-              <div class="text-center">
-                <%= link_to "ACCESS GROUP PAGE", group_path(group), class: "btn orange-btn" %>
+
+          <a href="<%= group_path(group) %>" class="container">
+            <div class="card align-items-center carousel-card" >
+              <% if group.admin.avatar.attached? %>
+                <%= cl_image_tag group.admin.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
+              <% else %>
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title text-center mb-1"><%= group.name %></h5>
               </div>
             </div>
-          </div>
+          </a>
+
         <% end %>
       </div>
     <% end %>
+    <br>
+    <div style="display: flex; justify-content: space-around;">
+      <%= link_to "BUTTON 1", "#", class: "btn brown-btn" %>
+      <%= link_to "CREATE A NEW TEAM", new_group_path, class: "ml-4 btn orange-btn" %>
+      <%= link_to "BUTTON 3", "#", class: "ml-4 btn brown-btn" %>
+    </div>
 
     <!-- JOIN A GROUP / CREATE A GROUP -->
     <br>
     <h5>Want to join a group?</h5>
     <h5>Look for your friends groups</h5><p> (insert search bar)</p>
-    <h5><%= link_to "Or create your own team", new_group_path %></h5>
 
   </div>
 
-  <!-- RIGHT SIDE BAR - SCOREBOARDS -->
-  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <p>Space for scoreboards</p>
-    <%#= render partial: "shared/scoreboard" %>
-    <%#= render 'shared/commitments' %>
-    <!--  CODE FOR SCORE PILL
-    <p class="card-text">
-    <div class="score-bar d-flex flex-row">
-      <div class="commitments-filler" style="width: <%#= user.commitments_score %>%;">
-      </div>
-      <div class="charges-filler" style="width: <%#= user.charges_score %>%;">
-      </div>
-    </div>
-    <h6 class="card-subtitle mt-2 text-center"><%#= user.commitments.count %> commitments</h6>
-    <h6 class="card-subtitle mt-2 text-center"><%#= user.charges.count %> charges</h6>
-    <h6 class="card-subtitle mt-2 text-center"><%#= user.sentences.count %> sentences</h6>
-    </p>
-    -->
-  </div>
 
 </div>
+
+<script>
+  const carousel = document.querySelector(".group-carousel");
+  window.onload(
+    carousel.scroll({
+    top: 0,
+    left: 250,
+    behavior: 'smooth'
+    })
+  );
+</script>

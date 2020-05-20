@@ -1,0 +1,78 @@
+<div class="left-sidebar">
+  <a class="logo" href="/groups" style="background-color: white;">
+    <h2 style="font-family: 'Roboto', sans-serif; color: #FF8A65">iso</h2><h2 style="font-family: 'Roboto', sans-serif; color: #2E2E2E">Court</h2>
+  </a>
+
+  <ul class="navbar-nav mr-auto">
+    <% if user_signed_in? %>
+      <li class="navbar-brand">
+        <%= link_to(groups_path) do %>
+          <div class="d-flex">
+            <p style="margin-bottom: 0px; margin-top: 5px; font-size: 22px">👩‍⚖️&nbsp;</p>
+            <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; color: white">DASHBOARD</h5>
+          </div>
+        <% end %>
+      </li>
+
+      <li class="navbar-brand">
+        <% if current_user.avatar.attached? %>
+          <%= cl_image_tag current_user.avatar.key, class: "chat-avatar mr-2" %>
+          <h5 style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif;"><%= link_to "PROFILE", user_path(current_user), class: "nav-link" %></h5>
+        <% else %>
+          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "chat-avatar mr-2" %>
+          <h5 style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif;"><%= link_to "PROFILE", user_path(current_user), class: "nav-link" %></h5>
+        <% end %>
+      </li>
+
+      <li class="navbar-brand">
+        <%= link_to("#") do %>
+          <div class="d-flex">
+            <p style="margin-bottom: 0px; margin-top: 5px; font-size: 22px">📫&nbsp;</p>
+            <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; color: white">NOTICES</h5>
+          </div>
+        <% end %>
+      </li>
+
+      <li class="navbar-brand nav-item dropdown" style="background-color: #2C2D2D; border-bottom: solid 1px #224C8E">
+          <div class="dropdown-toggle d-flex" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <p style="margin-bottom: 0px; margin-top: 5px; font-size: 22px">⚙️&nbsp;</p>
+            <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; color: white">SETTINGS</h5>
+          </div>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <%= link_to "Action", "#", class: "dropdown-item" %>
+          <%= link_to "Another action", "#", class: "dropdown-item" %>
+          <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+        </div>
+      </li>
+    <% else %>
+      <li class="nav-item">
+        <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- LAW IF LAWS -->
+  <% if @group %>
+    <div class="laws m-3 mt-4">
+        <%#= render 'laws-scroll-partial' %>
+        <h5 style="font-family: 'Roboto', sans-serif; color: white">LAWS</h5>
+        <section>
+           <div class="laws-list">
+            <% unless group.laws.empty? %>
+            <% num = 1 %>
+              <% group.laws.each do |law| %>
+                <%= render 'laws/law-partial', num: num, law: law %>
+                <% num += 1 %>
+              <% end %>
+            <% end %>
+          </div>
+        </section>
+
+        <%= render 'groups/newlawform-partial', group: group %>
+      </div>
+  <% end %>
+
+</div>
+
+
+

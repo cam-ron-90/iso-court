@@ -1,7 +1,8 @@
 .laws {
   text-align: center;
   position: relative;
-  width: 90%;
+  width: 85%;
+  max-height: 320px;
   background-color: $iso-orange;
   margin: 10px auto;
   padding: 10px;
@@ -34,6 +35,12 @@
     bottom: -2px;
     left: 0;
   }
+}
+
+.laws-list {
+  max-height: 160px;
+  overflow: scroll;
+  color: $iso-brown;
 }
 
 .form-law {
