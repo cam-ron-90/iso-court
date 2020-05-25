@@ -1,22 +1,32 @@
 <div class="row justify-content-center sign-up-page">
   <div class="col-10 col-lg-6 p-4 sign-up-form">
 
-    <h2 class="p-3">Forgot your password?</h2>
+    <div class="d-flex">
+      <%= link_to(request.referer) do %>
+        <div class="d-flex reverse-logo">
+          <h2 style="font-family: 'Roboto', sans-serif; color: #FF8A65">iso</h2><h2 style="font-family: 'Roboto', sans-serif; color: #2E2E2E">Court</h2>
+        </div>
+      <% end %>
 
-    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-      <%= f.error_notification %>
+      <div>
+        <h2 class="p-3">Forgot your password?</h2>
 
-      <div class="form-inputs p-3">
-        <%= f.input :email,
-                    required: true,
-                    autofocus: true,
-                    input_html: { autocomplete: "email" } %>
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs p-3">
+            <%= f.input :email,
+                        required: true,
+                        autofocus: true,
+                        input_html: { autocomplete: "email" } %>
+          </div>
+
+          <div class="form-actions p-3">
+            <%= f.button :submit, "RESET PASSWORD", class: "orange-btn mr-2" %>
+          </div>
+        <% end %>
       </div>
-
-      <div class="form-actions p-3">
-        <%= f.button :submit, "RESET PASSWORD", class: "orange-btn mr-2" %>
-      </div>
-    <% end %>
+    </div>
 
   </div>
 </div>

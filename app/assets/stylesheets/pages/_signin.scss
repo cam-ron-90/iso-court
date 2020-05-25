@@ -1,6 +1,6 @@
 .sign-up-page {
   background-color: $iso-blue;
-  min-height: calc(100vh);
+  min-height: 100vh;
   width: 100vw;
   align-items: center;
   margin: 0px !important;
@@ -8,10 +8,19 @@
 
 .sign-up-form {
   background-color: white;
-  margin: 3rem 1rem;
+  padding: 1.5rem 2.5rem 2rem 2.5rem;
+  margin: 3.5rem 3rem 3.5rem 0;
+  border-radius: 0 8px 8px 0;
   h2 {
     font-family: 'Roboto', sans-serif;
     color: $iso-brown;
+    margin-bottom: 0;
+  }
+  .form-group {
+    margin-bottom: 0.5rem;
+    label {
+      font-size: 13px;
+    }
   }
 }
 
@@ -22,4 +31,38 @@
   font-weight: 500;
   background: white;
   border-radius: 2px;
+}
+
+.inline-parents {
+  .form-group {
+   width: 48%;
+  &.user_password_confirmation {
+   margin: 0 0 0 auto;
+  }
+ }
+}
+
+.main-center {
+  background-color: #f9c49a;
+  min-height: inherit;
+}
+
+.child-centered {
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0px 0px 4px 1px rgba(150, 150, 150, 0.7);
+  background-color: white;
+  padding: 16px 32px;
+  text-align: center;
+  min-height: 85%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  left: 0;
 }
