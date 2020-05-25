@@ -5,14 +5,28 @@
 
   <ul class="navbar-nav mr-auto">
     <% if user_signed_in? %>
-      <li class="navbar-brand">
-        <%= link_to(groups_path) do %>
-          <div class="d-flex">
-            <p style="margin-bottom: 0px; margin-top: 5px; font-size: 22px">👩‍⚖️&nbsp;</p>
-            <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; color: white">DASHBOARD</h5>
-          </div>
+      <div id="dashboard">
+        <li class="navbar-brand first">
+          <%= link_to(groups_path) do %>
+            <div class="d-flex">
+              <p style="margin-bottom: 0px; margin-top: 5px; font-size: 22px">👩‍⚖️&nbsp;</p>
+              <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; color: white">DASHBOARD</h5>
+            </div>
+          <% end %>
+        </li>
+
+        <% if @group || params[:group_id] %>
+          <% @group ? group = @group : group = Group.find(params[:group_id]) %>
+          <li class="navbar-brand second d-none" style="background: white;">
+          <%= link_to(group_path(group)) do %>
+            <div class="d-flex">
+              <p style="margin-bottom: 0px; margin-top: 5px; font-size: 18px">👯‍♀️&nbsp;</p>
+              <h5 class="nav-link" style="margin: 0.3rem 0; font-family: 'Roboto', sans-serif; font-size: 12px; color: #2E2E2E"><%= group.name.upcase %></h5>
+            </div>
+          <% end %>
+        </li>
         <% end %>
-      </li>
+      </div>
 
       <li class="navbar-brand">
         <% if current_user.avatar.attached? %>
@@ -52,21 +66,20 @@
   </ul>
 
   <!-- LAW IF LAWS -->
-  <% if @group %>
-    <div class="laws m-3 mt-4">
-        <%#= render 'laws-scroll-partial' %>
-        <h5 style="font-family: 'Roboto', sans-serif; color: white">LAWS</h5>
-        <section>
-           <div class="laws-list">
-            <% unless group.laws.empty? %>
-            <% num = 1 %>
-              <% group.laws.each do |law| %>
-                <%= render 'laws/law-partial', num: num, law: law %>
-                <% num += 1 %>
-              <% end %>
+  <% if @group || params[:group_id] %>
+    <div class="laws m-3">
+      <h5 style="font-family: 'Roboto', sans-serif; color: white">LAWS</h5>
+      <section>
+         <div class="laws-list">
+          <% unless group.laws.empty? %>
+          <% num = 1 %>
+            <% group.laws.each do |law| %>
+              <%= render 'laws/law-partial', num: num, law: law %>
+              <% num += 1 %>
             <% end %>
-          </div>
-        </section>
+          <% end %>
+        </div>
+      </section>
 
         <%= render 'groups/newlawform-partial', group: group %>
       </div>

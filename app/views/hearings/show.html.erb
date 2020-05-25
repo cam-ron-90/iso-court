@@ -1,51 +1,77 @@
-<div class="row m-0 p-0" style="height: 90vh">
+<div class="row m-0 p-0" style="height: 100vh">
 
   <!-- LEFT SIDEBARD -->
-  <div class="col-2 p-0" style="position: sticky; flex: 1">
+  <div class="d-none d-md-block col-md-3 col-lg-2 p-0" style="position: sticky; flex: 1">
     <% group = @hearing.group %>
     <%= render 'shared/left-sidebar', group: group %>
   </div>
 
-   <div class="col-10 col-md-8 p-4" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <h3 class="mb-4">Let's start this week's hearing <%= link_to "END SENTENCING", group_hearings_path, method: :post, class: "btn brown-btn" %></h3>
+    <div class="col-12 col-md-9 col-lg-10 p-4 mr-4 ml-4" style="position: sticky; flex: 1; height: 100vh; overflow: scroll">
+      <h3 style="font-family:'Roboto', sans-serif; color: #2E2E2E; text-align: center">Let's start this week's hearing
+      <%= link_to "END SENTENCING", group_hearings_path, method: :post, class: "ml-4 btn brown-btn" %>
+      </h3>
 
-    <div class="card-grid">
-      <% @hearing.user_charges.order(:user_id).each do |usercharge| %>
-        <div class="card align-items-center">
-          <% if usercharge.user.avatar.attached? %>
-            <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-bordered mt-4" %>
-          <% else %>
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered mt-4" %>
-          <% end %>
-          <li>Charged: <%= usercharge.user.username %></li>
-          <li>Type of felony: <%= usercharge.charge.category %></li>
-          <li>Charge description: <%= usercharge.charge.description %></li>
-          <li>Judge: <%= usercharge.judge.username %></li>
-          <li>Verdict: <%= usercharge.verdict %></li>
+    <div class="hearing-carousel mt-4" id="trial-div">
+      <% @hearing.user_charges.each_with_index do |usercharge, ind| %>
 
-          <div>
-            <% if usercharge.verdict == "Pending" %>
-              <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
-              GUILTY
-              </button>
-              <%= link_to "NOT GUILTY",  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
-            <% elsif usercharge.verdict == "Not guilty" %>
-              <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
-              WAIT A MINUTE...<br />YOU'RE GUILTY!
-              </button>
-            <% else %>
-              <%= link_to "JUDICIAL ERROR...<br />SORRY BRO".html_safe,  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
-            <% end %>
+          <div class="card hearing-card align-items-center p-4 mt-4">
+            <div style="margin-bottom: -40px">
+              <% if ind == 0 %>
+                <h6 class="accusation-title">FIRST ACCUSATION</h6>
+              <% elsif usercharge == @hearing.user_charges.last %>
+                <h6 class="accusation-title">FINAL ACCUSATION</h6>
+              <% else %>
+                <h6 class="accusation-title">ACCUSATION N°<%= (ind+1).to_s %></h6>
+              <% end %>
+            </div>
+
+            <div class="container d-flex" style="padding-left: 35px;">
+              <% if usercharge.user.avatar.attached? %>
+                <%= cl_image_tag usercharge.user.avatar.key, class: "card-img-top avatar-bordered charged" %>
+                <%= image_tag "wanted.png", alt: "alttext", class: "wanted" %>
+              <% else %>
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered charged" %>
+                <%= image_tag "wanted.png", alt: "alttext", class: "wanted" %>
+              <% end %>
+
+              <% if usercharge.judge.avatar.attached? %>
+                <%= cl_image_tag usercharge.judge.avatar.key, class: "card-img-top avatar-bordered judge" %>
+                <%= image_tag "judge.png", alt: "alttext", class: "judge-set" %>
+              <% else %>
+                <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "card-img-top avatar-bordered judge" %>
+                <%= image_tag "judge.png", alt: "alttext", class: "judge-set" %>
+              <% end %>
+            </div>
+
+            <br>
+            <ul style="list-style-type: none; padding: 0 12px; margin-bottom: 2rem">
+              <div class="d-flex justify-content-between mb-2" style="font-family:'Roboto', sans-serif; color: #2E2E2E; padding-left: 8px; padding-right: 12px;">
+                <li>Charged <span style="color: #FF8965"><%= usercharge.user.username %></span></li>
+                <li>Judge <span style="color: #FF8965"><%= usercharge.judge.username %></span></li>
+              </div>
+              <li><span style="font-family:'Roboto', sans-serif; color: #2E2E2E; margin-top: 16px">Felony category:</span> <%= usercharge.charge.category %></li>
+              <li><span style="font-family:'Roboto', sans-serif; color: #2E2E2E;">Felony description:</span> <%= usercharge.charge.description %></li>
+              <li class="mt-3 text-center"><span style="font-family:'Roboto', sans-serif; color: #2E2E2E;">VERDICT</span> <span style="color: #FF8965"><strong> <%= usercharge.verdict.upcase %></strong></span></li>
+            </ul>
+
+            <div class="bottom-btns">
+              <% if usercharge.verdict == "Pending" %>
+                <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+                GUILTY
+                </button>
+                <%= link_to "NOT GUILTY",  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
+              <% elsif usercharge.verdict == "Not guilty" %>
+                <button type="button" class="btn orange-btn" id="sentenceModal" data-toggle="modal" data-target="#my-modal" data-usercharge= <%= usercharge.id %> data-name= <%= usercharge.user.username %> >
+                WAIT A MINUTE...<br />YOU'RE GUILTY!
+                </button>
+              <% else %>
+                <%= link_to "JUDICIAL ERROR...<br />SORRY BRO".html_safe,  user_charge_path(usercharge), method: :patch, class: "btn brown-btn" %>
+              <% end %>
+            </div>
           </div>
-        </div>
+
       <% end %>
     </div>
-  </div>
-
-  <div class="col-2 d-none d-md-flex p-1" style="position: sticky; flex: 1; height: 90vh; overflow: scroll">
-    <p>Space for scoreboards</p>
-    <%#= render partial: "shared/scoreboard" %>
-    <%#= render 'shared/commitments' %>
   </div>
 
 </div>
@@ -81,4 +107,8 @@
       document.getElementById("sentence_user_charge_id").value = userCharge;
     });
   });
+
+
+  // ANIMATING TRIAL
+
 </script>
